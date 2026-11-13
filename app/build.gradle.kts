@@ -16,7 +16,19 @@ android {
         versionName = "4.0.0"
     }
 
+    signingConfigs {
+        getByName("debug") {
+            storeFile = rootProject.file("debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     buildTypes {
+        debug {
+            signingConfig = signingConfigs.getByName("debug")
+        }
         release {
             isMinifyEnabled = false
         }
@@ -37,7 +49,7 @@ dependencies {
     implementation(composeBom)
 
     implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.runtime:runtime-saveable")   // <-- FIX: rememberSaveable
+    implementation("androidx.compose.runtime:runtime-saveable")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.compose.ui:ui-tooling-preview")
